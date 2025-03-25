@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const contactsRouter = require("./app/routes/contact.route");
+
+const booksRouter = require("./app/routes/book.route");
+const usersRouter = require("./app/routes/user.route");
+const employeesRouter = require("./app/routes/employee.route");
+const publishersRouter = require("./app/routes/publisher.route");
+const borrowsRouter = require("./app/routes/borrow.route");
+
 const ApiError = require("./app/api-error");
 
 const app = express();
@@ -9,22 +15,23 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.json({message: "Welcome to contact book application."});
+    res.json({ message: "Welcome to the Library Management System!" });
 });
 
-app.use("/api/contacts", contactsRouter);
+// Định nghĩa các route API
+app.use("/api/books", booksRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/employees", employeesRouter);
+app.use("/api/publishers", publishersRouter);
+app.use("/api/borrows", borrowsRouter);
 
-// handle 404 response
+// Xử lý lỗi 404 (Không tìm thấy route)
 app.use((req, res, next) => {
-    // Code ở đây sẽ chạy khi ko có route đc định nghĩa nào
-    // Khớp với yêu cầu. Gọi next() để chuyển sang middleware xử lý lỗi
     return next(new ApiError(404, "Resource not found"));
 });
 
-// define error-handling middleware last, after other app.use() and routes calls
+// Middleware xử lý lỗi tập trung
 app.use((err, req, res, next) => {
-    // Middleware xử lý lỗi tập trung
-    // Trong các đoạn code xử lý ở các route, gọi next(error) sẽ chuyển về middleware xử lý lỗi này
     return res.status(err.statusCode || 500).json({
         message: err.message || "Internal Server Error",
     });
