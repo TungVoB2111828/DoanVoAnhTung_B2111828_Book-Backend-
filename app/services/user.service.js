@@ -9,7 +9,7 @@ class UserService {
         const user = {
             MaDocGia: payload.MaDocGia,
             HoLot: payload.HoLot,
-            HoTen: payload.HoTen,
+            Ten: payload.Ten,
             NgaySinh: payload.NgaySinh,
             Phai: payload.Phai,
             DiaChi: payload.DiaChi,

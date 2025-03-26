@@ -3,6 +3,7 @@ const EmployeeService = require("../services/employee.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
+    console.log("Received request body:", req.body); // Kiểm tra dữ liệu nhận từ frontend
     if (!req.body?.HoTenNV || !req.body?.Email || !req.body?.ChucVu) {
         return next(new ApiError(400, "Thông tin nhân viên không được để trống"));
     }
