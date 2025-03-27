@@ -3,7 +3,7 @@ const UserService = require("../services/user.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.create = async (req, res, next) => {
-    if (!req.body?.MaDocGia || !req.body?.Email) {
+    if (!req.body?.Ten || !req.body?.Email) {
         return next(new ApiError(400, "Thông tin người dùng không được để trống"));
     }
 
